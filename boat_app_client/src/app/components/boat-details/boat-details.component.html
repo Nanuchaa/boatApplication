@@ -26,8 +26,14 @@
 
 <span *ngIf="service.boatDetails.id>0">
     <p-fieldset legend="Boat Details">
+
         <div *ngIf="displayEdit">
-            <ng-container *ngTemplateOutlet="editaction"></ng-container>
+            <ng-container *ngTemplateOutlet="boatDetailsInput"></ng-container>
+
+            <span class="p-col">
+                <button pButton type="submit" icon="pi pi-plus" label="Save" class="p-button-success"
+                    (click)="saveBoatDetails()"></button>
+            </span>
         </div>
 
         <div *ngIf="!displayEdit">
@@ -53,33 +59,37 @@
 </span>
 
 
-<ng-template #editaction>
+<ng-template #boatDetailsInput>
     <div class="p-grid">
-        <span class="p-col-6">Weight (in kg): </span>
-        <span class="p-col-6"><input pInputText type="number" [(ngModel)]="service.boatDetails.weight" /></span>
-    </div>
-    <div class="p-grid">
-        <span class="p-col-6">Manufactured on: </span>
-        <span class="p-col-6">
-            <p-calendar [numberOfMonths]="1" [(ngModel)]="service.boatDetails.manufacturedDate" dateFormat="dd.mm.yy"
-                placeholder="dd.mm.yy"></p-calendar>
-        </span>
-    </div>
-    <div class="p-grid">
-        <span class="p-col-6">Quantity: </span>
-        <span class="p-col-6"><input pInputText type="number" [(ngModel)]="service.boatDetails.quantity" /></span>
-    </div>
-    <div class="p-grid">
-        <span class="p-col-6">Type: </span>
-        <span class="p-col-6"><input pInputText type="text" [(ngModel)]="service.boatDetails.type" /></span>
-    </div>
+        <div class="p-col-12 p-lg-10">
+            <div class="p-grid">
+                <span class="p-col-6">Weight (in kg): *</span>
+                <span class="p-col-6"><input pInputText type="number" [(ngModel)]="service.boatDetails.weight" /></span>
+            </div>
+            <div class="p-grid">
+                <span class="p-col-6">Manufactured on: *</span>
+                <span class="p-col-6">
+                    <p-calendar appendTo="body" [numberOfMonths]="1" [(ngModel)]="service.boatDetails.manufacturedDate"
+                        dateFormat="dd.mm.yy" placeholder="dd.mm.yy"></p-calendar>
+                </span>
+            </div>
+            <div class="p-grid">
+                <span class="p-col-6">Quantity: </span>
+                <span class="p-col-6"><input pInputText type="number"
+                        [(ngModel)]="service.boatDetails.quantity" /></span>
+            </div>
+            <div class="p-grid">
+                <span class="p-col-6">Type: </span>
+                <span class="p-col-6"><input pInputText type="text" [(ngModel)]="service.boatDetails.type" /></span>
+            </div>
+        </div>
+    </div><br>
 
-    <span class="p-col">
-        <button pButton type="submit" icon="pi pi-plus" label="Save" class="p-button-success"
-            (click)="saveBoatDetails()"></button>
-    </span>
+    <div class="p-grid">
+        <span class="p-col-6 mandfield">{{message}}</span>
+        <span class="mar">* Mandatory field </span>
+    </div>
 </ng-template>
-
 
 
 <!-- *************************************** DIALOGS **************************************** -->
@@ -88,37 +98,19 @@
 <p-dialog header="Add Boat Details" [(visible)]="displayAdd" [modal]="true" [responsive]="true"
     [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '35vw'}">
 
-    <div class="p-grid">
-        <div class="p-col-12 p-lg-10">
-            <div class="p-grid">
-                <span class="p-col-6">Weight (in kg): </span>
-                <span class="p-col-6"><input pInputText type="number" [(ngModel)]="service.boatDetails.weight" /></span>
-            </div>
-            <div class="p-grid">
-                <span class="p-col-6">Manufactured on: </span>
-                <span class="p-col-6">
-                    <p-calendar appendTo="body" [numberOfMonths]="1" [(ngModel)]="service.boatDetails.manufacturedDate"
-                        dateFormat="dd.mm.yy" placeholder="dd.mm.yy"></p-calendar>
-                </span>
-            </div>
-            <div class="p-grid">
-                <span class="p-col-6">Quantity: </span>
-                <span class="p-col-6"><input pInputText type="number" [(ngModel)]="service.boatDetails.quantity" /></span>
-            </div>
-            <div class="p-grid">
-                <span class="p-col-6">Type: </span>
-                <span class="p-col-6"><input pInputText type="text" [(ngModel)]="service.boatDetails.type" /></span>
-            </div>
-        </div>
+    <ng-container *ngTemplateOutlet="boatDetailsInput"></ng-container>
 
+    <ng-template pTemplate="footer">
         <span class="p-col">
-            <button pButton type="reset" icon="pi pi-times" label="Cancel" class="p-button-info" (click)="cancel()"></button>
+            <button pButton type="reset" icon="pi pi-times" label="Cancel" class="p-button-info"
+                (click)="cancel()"></button>
         </span>
         <span class="p-col">
-            <button pButton type="submit" icon="pi pi-plus" label="Save" class="p-button-success" (click)="addBoatDetails()"></button>
+            <button pButton type="submit" icon="pi pi-plus" label="Save" class="p-button-success"
+                (click)="addBoatDetails()"></button>
         </span>
+    </ng-template>
 
-    </div>
 </p-dialog>
 
 
@@ -145,13 +137,17 @@
                 <span class="p-col-6">{{service.boatDetails.type}}</span>
             </div>
         </div>
-       
-        <span class="p-col">
-            <button pButton type="reset" icon="pi pi-times" label="Cancel" class="p-button-info" (click)="cancel()"></button>
-        </span>
-        <span class="p-col">
-            <button pButton type="submit" icon="pi pi-trash" label="Delete" class="p-button-danger" (click)="deleteBoatDetails()"></button>
-        </span>
-        
     </div>
+
+    <ng-template pTemplate="footer">
+        <span class="p-col">
+            <button pButton type="reset" icon="pi pi-times" label="Cancel" class="p-button-info"
+                (click)="cancel()"></button>
+        </span>
+        <span class="p-col">
+            <button pButton type="submit" icon="pi pi-trash" label="Delete" class="p-button-danger"
+                (click)="deleteBoatDetails()"></button>
+        </span>
+    </ng-template>
+
 </p-dialog>

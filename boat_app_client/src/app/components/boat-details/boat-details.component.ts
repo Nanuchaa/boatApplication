@@ -14,6 +14,7 @@ export class BoatDetailsComponent {
   displayEdit: boolean = false;
   displayDelete: boolean = false;
   boatId = 0;
+  message ="";
 
   constructor(public service: BoatDetailsService, private route: ActivatedRoute) {
     this.boatId = this.route.snapshot.params['id'];
@@ -31,12 +32,14 @@ export class BoatDetailsComponent {
   }
 
   showAddBoatDetails() {
+    this.message ="";
     this.service.boatDetails = new BoatDetails();
     this.service.boatDetails.boatIdfk = this.boatId;
     this.displayAdd = true;
   }
 
   showEditBoatDetails() {
+    this.message ="";
     this.displayEdit = true;
   }
 
@@ -46,14 +49,22 @@ export class BoatDetailsComponent {
 
 
   saveBoatDetails() {
-    this.service.saveBoatDetails();
-    this.displayEdit = false;
+    if(this.service.boatDetails.weight<=0 || this.service.boatDetails.manufacturedDate==null){
+      this.message="Please fill in the mandatory fields.";
+    }else {
+      this.service.saveBoatDetails();
+      this.displayEdit = false;
+    }
   }
 
   addBoatDetails() {
-    this.service.saveBoatDetails();
-    this.displayAdd = false;
-    console.log('add details with boatIdfk >>>>>> ', this.service.boatDetails.boatIdfk);
+    if(this.service.boatDetails.weight<=0 || this.service.boatDetails.manufacturedDate==null){
+      this.message="Please fill in the mandatory fields.";
+    }else {
+      this.service.saveBoatDetails();
+      this.displayAdd = false;
+      console.log('add details with boatIdfk: ', this.service.boatDetails.boatIdfk);
+    }
   }
 
   deleteBoatDetails() {

@@ -1,7 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { Boat, TestBoatList } from 'src/app/class/boat';
 import { ConfigService } from '../config/config.service';
 import { AuthService } from '../auth/auth.service';
@@ -23,9 +21,7 @@ export class BoatService {
   }
 
 
-  getBoatlist() {
-    //this.boatlist = TestBoatList;
-    
+  getBoatlist() {  
     this.http.get(this.confservice.getBoatlistUrl, this.confservice.getHeaders()).subscribe(
       (list: any) => {
         this.boatlist = list;
@@ -33,12 +29,10 @@ export class BoatService {
       (err: Error) => {
         console.log('Error occurred while getting Boatlist.', err);
         this.authService.logout();
-      })
-      
+      }) 
   }
 
   saveBoat(boat: Boat) {
-    //this.boatlist.push(boat);
     this.http.post(this.confservice.saveBoatUrl, boat, this.confservice.getHeaders())
     .toPromise()
     .then((_boat) => {
@@ -50,7 +44,9 @@ export class BoatService {
 
   getBoatById(id: number) {
     return this.http.get(this.confservice.getBoatUrl + id, this.confservice.getHeaders())
-    .toPromise();
+    .toPromise().catch(err => {
+      console.warn('Error while getting boatById ', err);
+    });
   }
 
   deleteBoat(id: number) {

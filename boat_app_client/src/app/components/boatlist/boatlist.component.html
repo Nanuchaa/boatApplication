@@ -70,6 +70,23 @@
 <p-dialog header="Add New Boat" [(visible)]="displayAdd" [modal]="true" [responsive]="true"
     [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '35vw'}">
 
+    <ng-container *ngTemplateOutlet="boatInputs"></ng-container>
+
+    <ng-template pTemplate="footer">
+        <span class="p-col">
+            <button pButton type="reset" icon="pi pi-times" label="Cancel" class="p-button-info"
+                (click)="cancel()"></button>
+        </span>
+        <span class="p-col p-button-group-right">
+            <button pButton type="submit" icon="pi pi-plus" label="Save" class="p-button-success"
+                (click)="addBoat(boat)"></button>
+        </span>
+    </ng-template>
+
+</p-dialog>
+
+
+<ng-template #boatInputs>
     <div class="p-grid">
         <div class="p-col-12 p-lg-10">
             <div class="p-grid">
@@ -91,49 +108,19 @@
         </div>
     </div><br>
 
-    <ng-template pTemplate="footer">
-        <span class="p-col">
-            <button pButton type="reset" icon="pi pi-times" label="Cancel" class="p-button-info"
-                (click)="cancel()"></button>
-        </span>
-        <span class="p-col p-button-group-right">
-            <button pButton type="submit" icon="pi pi-plus" label="Save" class="p-button-success"
-                (click)="addBoat(boat)"></button>
-        </span>
-    </ng-template>
-
     <div class="p-grid">
         <span class="p-col-6 mandfield">{{message}}</span>
         <span class="mar">* Mandatory field </span>
     </div>
-
-</p-dialog>
-
+</ng-template>
 
 <!-- ************************************** EDIT DIALOG ************************************** -->
 <p-dialog header="Edit Boat" [(visible)]="displayEdit" [modal]="true" [responsive]="true"
     [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '35vw'}">
 
-    <div class="p-grid">
-        <div class="p-col-12 p-lg-10">
-            <div class="p-grid">
-                <span class="p-col-6">Name: </span>
-                <span class="p-col-6"><input pInputText type="text" [(ngModel)]="boat.name" /></span>
-            </div>
-            <div class="p-grid">
-                <span class="p-col-6">Description: </span>
-                <span class="p-col-6"><textarea pInputTextarea type="text" [rows]="4" [cols]="19"
-                        [(ngModel)]="boat.description"></textarea></span>
-            </div>
-            <div class="p-grid">
-                <span class="p-col-6">Price: </span>
-                <span class="p-col-6">
-                    <p-inputNumber mode="currency" inputId="currency-switzerland" currency="CHF" locale="de-CH"
-                        [(ngModel)]="boat.price"></p-inputNumber>
-                </span>
-            </div>
-        </div>
+    <ng-container *ngTemplateOutlet="boatInputs"></ng-container>
 
+    <ng-template pTemplate="footer">
         <span class="p-col">
             <button pButton type="reset" icon="pi pi-times" label="Cancel" class="p-button-info"
                 (click)="cancel()"></button>
@@ -142,8 +129,8 @@
             <button pButton type="submit" icon="pi pi-plus" label="Save" class="p-button-success"
                 (click)="editBoat(boat)"></button>
         </span>
+    </ng-template>
 
-    </div>
 </p-dialog>
 
 
@@ -166,7 +153,9 @@
                 <span class="p-col-6">{{boat.price}}</span>
             </div>
         </div>
+    </div>
 
+    <ng-template pTemplate="footer">
         <span class="p-col">
             <button pButton type="reset" icon="pi pi-times" label="Cancel" class="p-button-info"
                 (click)="cancel()"></button>
@@ -175,6 +164,6 @@
             <button pButton type="submit" icon="pi pi-trash" label="Delete" class="p-button-danger"
                 (click)="deleteBoat(boat)"></button>
         </span>
-
-    </div>
+    </ng-template>
+    
 </p-dialog>

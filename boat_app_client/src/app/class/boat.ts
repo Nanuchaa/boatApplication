@@ -3,7 +3,7 @@ export class Boat {
     id: number=0;
     name: string="";
     description: string="";
-    price: string="";
+    price: number=0;
 }
 
 export const TestBoatList=[

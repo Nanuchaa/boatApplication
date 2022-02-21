@@ -13,7 +13,6 @@ import { BoatService } from 'src/app/services/boat/boat.service';
 export class BoatlistComponent implements OnInit {
 
   boat: Boat = new Boat();
-  backupBoat: any;
   displayAdd: boolean = false;
   displayEdit: boolean = false;
   displayDelete: boolean = false;
@@ -40,6 +39,7 @@ export class BoatlistComponent implements OnInit {
   }
 
   showEditBoat(item: any) {
+    this.message ="";
     this.boat = Object.assign({}, item);    //No deepcopy
     this.displayEdit = true;
   }
@@ -55,8 +55,8 @@ export class BoatlistComponent implements OnInit {
   }
 
 
-  addBoat(boat: any){
-    if(boat.name=="" || boat.description=="" || boat.price==""){
+  addBoat(boat: Boat){
+    if(boat.name=="" || boat.description=="" || boat.price<=0){
       this.message="Please fill in the mandatory fields.";
     }else {
       this.service.saveBoat(boat);
@@ -64,9 +64,13 @@ export class BoatlistComponent implements OnInit {
     }
   }
 
-  editBoat(boat: any){
-    this.service.saveBoat(boat);
-    this.displayEdit = false;
+  editBoat(boat: Boat){
+    if(boat.name=="" || boat.description=="" || boat.price<=0){
+      this.message="Please fill in the mandatory fields.";
+    }else {
+      this.service.saveBoat(boat);
+      this.displayEdit = false;
+    }
   }
 
   deleteBoat(boat: any){
