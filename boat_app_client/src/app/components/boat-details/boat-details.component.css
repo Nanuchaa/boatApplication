@@ -1,0 +1,9 @@
+.marg {
+    margin-left: 40px;
+}
+
+.notfound {
+    margin-left: 20px;
+    font-style: italic;
+    font-weight: 100;
+}

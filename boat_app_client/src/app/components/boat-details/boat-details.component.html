@@ -1,0 +1,157 @@
+<p-panel header="Actions" [toggleable]="true">
+
+    <span *ngIf="service.boatDetails.id==0">
+        <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-info"
+            pTooltip="Add Boat details" (click)="showAddBoatDetails()"></button>
+    </span>
+
+    <span *ngIf="service.boatDetails.id>0">
+        <button pButton pRipple type="button" icon="pi pi-pencil" pTooltip="Edit Boat details"
+            class="p-button-rounded p-button-info marg" (click)="showEditBoatDetails()"></button>
+
+        <button pButton pRipple type="button" icon="pi pi-trash" pTooltip="Delete Boat details"
+            class="p-button-rounded p-button-danger marg" (click)="showDeleteBoatDetails()"></button>
+    </span>
+
+    <button pButton pRipple type="button" icon="pi pi-home" class="p-button-rounded p-button-info marg"
+        pTooltip="Go back to Boatlist" routerLink="/boatlist"></button>
+
+</p-panel>
+
+<br>
+<div *ngIf="service.boatDetails.id==0">
+    <div class="notfound">No Boat details found.</div>
+</div>
+
+
+<span *ngIf="service.boatDetails.id>0">
+    <p-fieldset legend="Boat Details">
+        <div *ngIf="displayEdit">
+            <ng-container *ngTemplateOutlet="editaction"></ng-container>
+        </div>
+
+        <div *ngIf="!displayEdit">
+            <div class="p-grid">
+                <span class="p-col-6">Weight: </span>
+                <span class="p-col-6">{{service.boatDetails.weight}} kg</span>
+            </div>
+            <div class="p-grid">
+                <span class="p-col-6">Manufactured on: </span>
+                <span class="p-col-6">{{service.boatDetails.manufacturedDate | date: 'dd.MM.yyyy'}}</span>
+            </div>
+            <div class="p-grid">
+                <span class="p-col-6">Quantity: </span>
+                <span class="p-col-6">{{service.boatDetails.quantity}}</span>
+            </div>
+            <div class="p-grid">
+                <span class="p-col-6">Type: </span>
+                <span class="p-col-6">{{service.boatDetails.type}}</span>
+            </div>
+        </div>
+
+    </p-fieldset>
+</span>
+
+
+<ng-template #editaction>
+    <div class="p-grid">
+        <span class="p-col-6">Weight (in kg): </span>
+        <span class="p-col-6"><input pInputText type="number" [(ngModel)]="service.boatDetails.weight" /></span>
+    </div>
+    <div class="p-grid">
+        <span class="p-col-6">Manufactured on: </span>
+        <span class="p-col-6">
+            <p-calendar [numberOfMonths]="1" [(ngModel)]="service.boatDetails.manufacturedDate" dateFormat="dd.mm.yy"
+                placeholder="dd.mm.yy"></p-calendar>
+        </span>
+    </div>
+    <div class="p-grid">
+        <span class="p-col-6">Quantity: </span>
+        <span class="p-col-6"><input pInputText type="number" [(ngModel)]="service.boatDetails.quantity" /></span>
+    </div>
+    <div class="p-grid">
+        <span class="p-col-6">Type: </span>
+        <span class="p-col-6"><input pInputText type="text" [(ngModel)]="service.boatDetails.type" /></span>
+    </div>
+
+    <span class="p-col">
+        <button pButton type="submit" icon="pi pi-plus" label="Save" class="p-button-success"
+            (click)="saveBoatDetails()"></button>
+    </span>
+</ng-template>
+
+
+
+<!-- *************************************** DIALOGS **************************************** -->
+
+<!-- ************************************** ADD DIALOG ************************************** -->
+<p-dialog header="Add Boat Details" [(visible)]="displayAdd" [modal]="true" [responsive]="true"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '35vw'}">
+
+    <div class="p-grid">
+        <div class="p-col-12 p-lg-10">
+            <div class="p-grid">
+                <span class="p-col-6">Weight (in kg): </span>
+                <span class="p-col-6"><input pInputText type="number" [(ngModel)]="service.boatDetails.weight" /></span>
+            </div>
+            <div class="p-grid">
+                <span class="p-col-6">Manufactured on: </span>
+                <span class="p-col-6">
+                    <p-calendar appendTo="body" [numberOfMonths]="1" [(ngModel)]="service.boatDetails.manufacturedDate"
+                        dateFormat="dd.mm.yy" placeholder="dd.mm.yy"></p-calendar>
+                </span>
+            </div>
+            <div class="p-grid">
+                <span class="p-col-6">Quantity: </span>
+                <span class="p-col-6"><input pInputText type="number" [(ngModel)]="service.boatDetails.quantity" /></span>
+            </div>
+            <div class="p-grid">
+                <span class="p-col-6">Type: </span>
+                <span class="p-col-6"><input pInputText type="text" [(ngModel)]="service.boatDetails.type" /></span>
+            </div>
+        </div>
+
+        <span class="p-col">
+            <button pButton type="reset" icon="pi pi-times" label="Cancel" class="p-button-info" (click)="cancel()"></button>
+        </span>
+        <span class="p-col">
+            <button pButton type="submit" icon="pi pi-plus" label="Save" class="p-button-success" (click)="addBoatDetails()"></button>
+        </span>
+
+    </div>
+</p-dialog>
+
+
+<!-- ************************************** DELETE DIALOG ************************************** -->
+<p-dialog header="Delete Boat" [(visible)]="displayDelete" [modal]="true" [responsive]="true"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '35vw'}">
+
+    <div class="p-grid">
+        <div class="p-col-12 p-lg-10">
+            <div class="p-grid">
+                <span class="p-col-6">Weight: </span>
+                <span class="p-col-6">{{service.boatDetails.weight}}</span>
+            </div>
+            <div class="p-grid">
+                <span class="p-col-6">Manufactured on: </span>
+                <span class="p-col-6">{{service.boatDetails.manufacturedDate | date: 'dd.MM.yyyy'}}</span>
+            </div>
+            <div class="p-grid">
+                <span class="p-col-6">Quantity: </span>
+                <span class="p-col-6">{{service.boatDetails.quantity}}</span>
+            </div>
+            <div class="p-grid">
+                <span class="p-col-6">Type: </span>
+                <span class="p-col-6">{{service.boatDetails.type}}</span>
+            </div>
+        </div>
+       
+        <span class="p-col">
+            <button pButton type="reset" icon="pi pi-times" label="Cancel" class="p-button-info" (click)="cancel()"></button>
+        </span>
+        <span class="p-col">
+            <button pButton type="submit" icon="pi pi-trash" label="Delete" class="p-button-danger" (click)="deleteBoatDetails()"></button>
+        </span>
+        
+    </div>
+</p-dialog>

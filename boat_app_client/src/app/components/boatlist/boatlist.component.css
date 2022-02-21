@@ -1,0 +1,28 @@
+/* Style that overwrite primefaces styles like huge padding and margin*/
+
+.p-panel .p-panel-header, .p-toolbar  {
+    padding: 0.5rem 1rem !important;
+}
+
+td {
+    padding: 0.1rem 1rem !important;
+}
+th {
+    padding: 0.5rem 1rem !important;
+}
+
+.welcome {
+    color: #2779aa;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.mar {
+    position: absolute;
+    right: 20px;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.mandfield {
+    color: red;
+    font-style: italic;
+}

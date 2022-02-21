@@ -1,0 +1,15 @@
+{
+    "backend_server": "http://localhost:8080",
+
+    "authenticate": "/authenticate",
+
+    "get_boatlist":"/getboatlist",
+    "get_boat":"/getboatbyid/",
+    "save_boat": "/saveboat",
+    "delete_boat": "/deleteboat/",
+
+    "get_boatdetails_byboatidfk":"/getboatdetails/byboatidfk/",
+    "save_boatdetails": "/saveboatdetails",
+    "delete_boatdetails": "/deleteboatdetails/"
+
+}

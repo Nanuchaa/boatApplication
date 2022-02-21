@@ -1,3 +1,10 @@
+/node_modules
+/.idea
+/dist
+.project
+/target
+.vscode/*
+
 # Compiled class file
 *.class
 
