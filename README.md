@@ -37,4 +37,13 @@ Sample Boat Application
 
 * Copy file `spring-boot-h2-db.mv.db` to your home directory to use the sample data.
 
+## Deployment in Docker
+
+The backend `boat_app` can also be deployed in docker.
+
+### To deploy in a docker container 
+
+* run `mvn clean package`
+* run `docker build -t boat_app .` to build the docker image
+* run `docker run -d -p 8080:8080 --name boat_app_container boat_app` to deploy in a docker container.
 
