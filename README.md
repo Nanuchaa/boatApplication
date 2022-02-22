@@ -12,7 +12,9 @@ Sample Boat Application
 
 * Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-
+* To login in `localhost:4200`, use 
+    * username: `openwt`
+    * password: `password`
 
 # boat_app
 
@@ -28,10 +30,10 @@ Sample Boat Application
 * run `java -jar target/boat_app-0.0.1-SNAPSHOT.jar` to run the application.
 * The application is run in port 8080.
 
-
 ## Test database
+* The database console can be accessed in `localhost:8080/h2-console` enabled for test purposes only.
 
-* Configuraion in `application.properties`
+* Configuraion can be found in `application.properties`
 
 * By default, the database is empty with new deployment.
 
